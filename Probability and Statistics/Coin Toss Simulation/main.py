@@ -47,7 +47,7 @@ def draw_curve(results: dict, n_coins: int, p_tail: int = 0.5):
 
 
 n_rounds = 500000
-n_coins = 500
+n_coins = 5000
 results = simulate(n_rounds, n_coins, 0.7)
 draw_curve(results, n_coins, 0.7)
 results = simulate(n_rounds, n_coins)
