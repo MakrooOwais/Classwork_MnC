@@ -1,44 +1,53 @@
-# Runge-Kutta Method - Explanation and Implementation
+# Runge-Kutta Method Implementation Using Classes - Explanation
 
-The **Runge-Kutta method** is a numerical technique for solving ordinary differential equations (ODEs) numerically. It's particularly useful for solving ODEs that can't be solved analytically. The method approximates the solution by breaking down the interval into smaller steps and computing the change in the dependent variable over each step.
+The provided code implements the **Runge-Kutta method** for solving ordinary differential equations (ODEs) using a class-based approach. Let's break down the code and understand how classes are utilized to implement this numerical technique.
 
-## Key Concepts
+## Class `RungeKuttaMethod`
 
-Before diving into the implementation, let's understand the key concepts involved:
+This class represents the core of the Runge-Kutta method implementation. It contains methods and attributes necessary for solving ODEs numerically.
 
-1. **Ordinary Differential Equation (ODE)**: An equation that relates a function with its derivatives. It describes how a variable changes with respect to another variable.
-2. **Initial Value Problem (IVP)**: Given an initial value for the function, find its values at various points using the ODE.
-3. **Step Size (h)**: The interval at which the solution is computed.
-4. **Order of the Method**: Determines the accuracy of the approximation.
+### Class Attributes
 
-## Implementation Explanation
+- `coefficients_dict`: A dictionary containing coefficients for different orders of the Runge-Kutta method.
+- `coefficients_k_dict`: A dictionary containing coefficients for evaluating `k_i` values.
+- `order`: The order of the Runge-Kutta method.
+- `result`: The final result of the method.
+- `k_i`: A list to store intermediate values.
 
-### Function Definitions
+### Constructor `__init__(self, order: int)`
 
-The provided implementation includes two functions (`f_1` and `f_2`) representing the differential equations to be solved. They take `x` and `y` as inputs and return the corresponding values based on the equations.
+The constructor initializes the class instance with the specified order and creates placeholders for the result and `k_i` values.
 
-### `rungeKuttaMethod` Function
+### Method `solve(self, f: callable, a: float, y_a: float, h: float) -> float`
 
-The `rungeKuttaMethod` function takes the following inputs:
+This method is responsible for solving the given ODE using the Runge-Kutta method. It takes the following inputs:
 
 - `f`: The callable representing the differential equation.
 - `a`: The initial value of the independent variable.
 - `y_a`: The initial value of the dependent variable at `a`.
 - `h`: The step size.
-- `order`: The order of the Runge-Kutta method.
 
-The function then uses the Runge-Kutta method to approximate the value of the dependent variable at a specific point. Here's how it works:
+Inside the method:
 
-1. It defines the coefficients and coefficients for `k_i` based on the chosen order.
-2. Calculates `k_i` values using the provided differential equation and coefficients.
-3. Computes the result by combining the weighted `k_i` values.
+1. The appropriate coefficients are retrieved based on the order of the method.
+2. The `k_i` values are calculated using the provided differential equation and coefficients.
+3. The final result is computed by combining the weighted `k_i` values.
+4. The result is rounded to ensure precision.
 
-The function returns the approximation of the dependent variable at the specified point.
+### Method `getKs(self) -> list`
 
-### Example
+This method returns the list of intermediate `k_i` values.
 
-For instance, consider the equation `dy/dx = -2xy^2` with the initial condition `y(0) = 1`. By using the Runge-Kutta method with an order of 4 and a step size of 0.2, the function approximates the value of `y` at `x = 0.2`.
+## Creating Instances and Solving Equations
 
-### Conclusion
+Three instances of the `RungeKuttaMethod` class are created for orders 2, 3, and 4. The equations `f_1` and `f_2` are solved using each instance with different initial conditions and step sizes.
 
-The Runge-Kutta method is a widely used technique for numerically solving ordinary differential equations. It provides a way to approximate the behavior of complex systems that can't be solved analytically. The implementation in the provided code follows the core principles of Runge-Kutta's algorithm: breaking down the problem into steps, evaluating functions at specific points, and combining these evaluations to approximate the solution. The method can be applied to various types of differential equations, making it an essential tool in scientific and engineering fields.
+## Benefits of Using Classes
+
+1. **Modularity**: The class-based approach encapsulates the implementation details within the class, making the code more modular and organized.
+2. **Reusability**: Once the class is defined, it can be reused to solve various ODEs with different initial conditions and orders.
+3. **Readability**: The use of classes improves code readability by grouping related functionality together.
+
+## Conclusion
+
+By using classes to implement the Runge-Kutta method, the code becomes more structured, reusable, and maintainable. This approach is particularly beneficial when dealing with multiple orders of the method and varying differential equations, as it allows for a clear separation of concerns and efficient code management.
