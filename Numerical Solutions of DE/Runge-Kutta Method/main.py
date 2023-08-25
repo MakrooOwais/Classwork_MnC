@@ -6,6 +6,10 @@ def f_2(x: float, y: float) -> float:
     return x**2 + y**2
 
 
+def f_3(x: float, y: float) -> float:
+    return x**2 + 2 * x * y
+
+
 class RungeKuttaMethod:
     coefficients_dict = {2: [0, 1], 3: [0, 1 / 2, 1], 4: [0, 1 / 2, 1 / 2, 1]}
     coefficients_k_dict = {
@@ -45,9 +49,11 @@ fourthOrderRK = RungeKuttaMethod(4)
 
 print(secondOrderRK.solve(f_1, 0, 1, 0.2))
 print(secondOrderRK.solve(f_2, 1, 1.2, 0.05))
+print(secondOrderRK.solve(f_3, 0, 1, 0.1))
+print(secondOrderRK.getKs())
 
-print(thirdOrderRK.solve(f_1, 0, 1, 0.2))
-print(thirdOrderRK.solve(f_2, 1, 1.2, 0.05))
+# print(thirdOrderRK.solve(f_1, 0, 1, 0.2))
+# print(thirdOrderRK.solve(f_2, 1, 1.2, 0.05))
 
-print(fourthOrderRK.solve(f_1, 0, 1, 0.2))
-print(fourthOrderRK.solve(f_2, 1, 1.2, 0.05))
+# print(fourthOrderRK.solve(f_1, 0, 1, 0.2))
+# print(fourthOrderRK.solve(f_2, 1, 1.2, 0.05))
