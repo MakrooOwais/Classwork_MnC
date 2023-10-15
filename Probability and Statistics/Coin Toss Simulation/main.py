@@ -6,24 +6,19 @@ from tqdm import tqdm
 
 def coinToss(n: int, prob_tail: float = 0.5):
     n_tail = 0
-    record = []
-    coin = {0: "Head", 1: "Tail"}
 
     for _ in range(n):
         if random.random() <= prob_tail:
             n_tail += 1
-            record.append(coin[1])
-        else:
-            record.append(coin[0])
 
-    return n_tail, n, record
+    return n_tail, n
 
 
 def simulate(n_rounds: int, n_coins: int, prob_tail: float = 0.5) -> dict:
     results = dict()
 
     for _ in tqdm(range(n_rounds), desc="Simulating..."):
-        n_tails, n, _ = coinToss(n_coins, prob_tail)
+        n_tails, n = coinToss(n_coins, prob_tail)
         res = round(n_tails / n, 7)
         if res not in results.keys():
             results[res] = 0
