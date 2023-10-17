@@ -24,7 +24,7 @@ def simulate(n_rounds: int, n_coins: int, prob_tail: float = 0.5) -> dict:
             results[res] = 0
         results[res] += 1
 
-    return dict(sorted(results.items()))
+    return results
 
 
 def draw_curve(results: dict, n_coins: int, p_tail: int = 0.5):
