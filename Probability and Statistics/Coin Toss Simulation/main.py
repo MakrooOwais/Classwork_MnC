@@ -1,30 +1,18 @@
-import random
 import matplotlib.pyplot as plt
+import numpy as np
 
 from tqdm import tqdm
-
-
-def coinToss(n: int, prob_tail: float = 0.5):
-    n_tail = 0
-
-    for _ in range(n):
-        if random.random() <= prob_tail:
-            n_tail += 1
-
-    return n_tail, n
+from collections import Counter
 
 
 def simulate(n_rounds: int, n_coins: int, prob_tail: float = 0.5) -> dict:
-    results = dict()
+    results = np.zeros(n_rounds)
 
-    for _ in tqdm(range(n_rounds), desc="Simulating..."):
-        n_tails, n = coinToss(n_coins, prob_tail)
-        res = round(n_tails / n, 7)
-        if res not in results.keys():
-            results[res] = 0
-        results[res] += 1
+    for i in tqdm(range(n_rounds), desc="Simulating..."):
+        res = np.random.rand(n_coins, 1)
+        results[i] += round(np.sum(res <= prob_tail) / n_coins, 7)
 
-    return results
+    return Counter(results.tolist())
 
 
 def draw_curve(results: dict, n_coins: int, p_tail: int = 0.5):
@@ -34,15 +22,15 @@ def draw_curve(results: dict, n_coins: int, p_tail: int = 0.5):
     plt.figure(figsize=(12, 18))
     plt.xlabel("Ratio of n_tails to n")
     plt.ylabel("Frequency")
-    plt.bar(probs, freqs, color="maroon", width=1 / n_coins)
+    plt.bar(probs, freqs, color="maroon", width=n_coins)
 
-    plt.savefig(f'output_{p_tail}.png')
-    
+    plt.savefig(f"output_{p_tail}.png")
+
     plt.show()
 
 
 n_rounds = 500000
-n_coins = 5000
+n_coins = 50000
 results = simulate(n_rounds, n_coins, 0.7)
 draw_curve(results, n_coins, 0.7)
 results = simulate(n_rounds, n_coins)
